@@ -35,12 +35,17 @@ npm run db:migrate            # prisma migrate dev — creates tables
 npm run db:seed               # idempotent seed: 3 users, 1 workspace, 1 project, 12 tasks, labels
 
 # 4 — dev (two terminals or one)
-npm run dev                   # concurrently: server :4000 + client :5173 (Vite proxies /api → :4000)
+npm run dev                   # concurrently: server :$PORT + client :5173 (Vite proxies /api → $PORT)
 # or separately:
 # npm run dev --workspace=server
 # npm run dev --workspace=client
 
-# 5 — verify
+# 5 — sign in with the seeded demo account
+# email maya@example.com / password Password123
+# (raj@example.com and sam@example.com share the same password;
+#  re-running npm run db:seed resets it deterministically)
+
+# 6 — verify
 curl http://localhost:4000/api/health
 open http://localhost:5173
 ```
@@ -121,7 +126,7 @@ In prod, set `NODE_ENV=production`, `secure:true` cookies (https), and real `DAT
 ├── server/
 │   ├── src/                  # app.ts, server.ts, config/env, lib/prisma, middleware
 │   └── prisma/               # schema.prisma + seed.ts + migrations/
-└── client/                   # Vite React (proxy /api → :4000)
+└── client/                   # Vite React (proxy /api → $PORT)
 ```
 
 Existing `calculator-app/` and `pomodoro-focus-timer/` are unrelated examples preserved in-repo.

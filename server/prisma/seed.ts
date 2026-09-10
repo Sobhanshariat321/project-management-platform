@@ -17,7 +17,8 @@ async function main() {
     ].map((u) =>
       prisma.user.upsert({
         where: { email: u.email },
-        update: {},
+        // Reset demo credentials deterministically so re-seeding fixes stale hashes.
+        update: { passwordHash, displayName: u.displayName },
         create: { email: u.email, displayName: u.displayName, passwordHash },
       }),
     ),

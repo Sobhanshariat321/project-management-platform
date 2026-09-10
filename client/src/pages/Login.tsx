@@ -7,8 +7,8 @@ import { Card, CardContent } from "../components/ui/card.tsx";
 import { useToastStore } from "../stores/toast.ts";
 
 export default function Login() {
-  const [email, setEmail] = useState("demo@example.com");
-  const [password, setPassword] = useState("Demo1234");
+  const [email, setEmail] = useState("maya@example.com");
+  const [password, setPassword] = useState("Password123");
   const login = useLogin();
   const nav = useNavigate();
   const toast = useToastStore(s=>s.push);
@@ -28,7 +28,7 @@ export default function Login() {
           <Button type="submit" disabled={login.isPending} className="w-full">{login.isPending? "Signing in…":"Sign in"}</Button>
         </form>
         <p className="mt-4 text-sm text-zinc-600">No account? <Link to="/register" className="font-medium text-indigo-600 hover:underline">Create one</Link></p>
-        <p className="mt-2 text-xs text-zinc-400">Demo seed: demo@example.com / Demo1234 (run npm run db:seed)</p>
+        <p className="mt-2 text-xs text-zinc-400">Demo seed: maya@example.com / Password123 (run npm run db:seed)</p>
       </CardContent>
     </Card>
   </div>;

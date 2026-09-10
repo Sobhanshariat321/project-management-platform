@@ -47,3 +47,8 @@ pgdata/
 # Tool caches
 .turbo/
 .parcel-cache/
+
+# Local agent scratch (not part of product)
+/plan
+/plans/
+/confirmation

@@ -1,0 +1,425 @@
+{
+  "checks": [
+    {
+      "name": "register success",
+      "passed": true,
+      "detail": "status=201 {'user': {'id': '851f86df-f702-4093-a873-85c1987db04b', 'email': 'qa_a_ohvpyr@example.com', 'displayName': 'QA A'}}"
+    },
+    {
+      "name": "register duplicate email -> 409",
+      "passed": true,
+      "detail": "status=409 {'error': {'code': 'CONFLICT', 'message': 'Email already registered'}}"
+    },
+    {
+      "name": "register second user",
+      "passed": true,
+      "detail": "status=201"
+    },
+    {
+      "name": "register invalid email -> 400",
+      "passed": true,
+      "detail": "status=400 {'error': {'code': 'VALIDATION_ERROR', 'message': 'Validation failed', 'fields': {'email': 'Invalid email'}}}"
+    },
+    {
+      "name": "register weak password -> 400",
+      "passed": true,
+      "detail": "{'error': {'code': 'VALIDATION_ERROR', 'message': 'Validation failed', 'fields': {'password': 'Too weak'}}}"
+    },
+    {
+      "name": "login success",
+      "passed": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "login wrong password -> 401",
+      "passed": true,
+      "detail": "status=401 {'error': {'code': 'UNAUTHORIZED', 'message': 'Invalid credentials'}}"
+    },
+    {
+      "name": "GET /auth/me without auth -> 401",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "name": "login for me test",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET /auth/me with auth",
+      "passed": true,
+      "detail": "{'user': {'id': '851f86df-f702-4093-a873-85c1987db04b', 'email': 'qa_a_ohvpyr@example.com', 'displayName': 'QA A', 'createdAt': '2026-09-10T07:53:05.773Z'}}"
+    },
+    {
+      "name": "POST /auth/refresh with valid cookie -> 200",
+      "passed": true,
+      "detail": "{'ok': True}"
+    },
+    {
+      "name": "POST /auth/logout -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET /auth/me after logout -> 401",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "re-login A for workspace tests",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET workspaces empty or seeded",
+      "passed": true,
+      "detail": "total=0"
+    },
+    {
+      "name": "POST workspace create -> 201",
+      "passed": true,
+      "detail": "{'workspace': {'id': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'name': 'QA WS ohvpyr', 'handle': 'qa-ws-ohvpyr', 'description': 'test', 'ownerId': '851f86df-f702-4093-a873-85c1987db04b', 'createdAt': '2026-09-10T07:53:06.203Z', 'updatedAt': '2026-09-10T07:53:06.203Z'}}"
+    },
+    {
+      "name": "duplicate handle -> 409",
+      "passed": true,
+      "detail": "{'error': {'code': 'CONFLICT', 'message': 'Handle already taken'}}"
+    },
+    {
+      "name": "GET workspace by id -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH workspace rename -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST workspace members add B -> 201",
+      "passed": true,
+      "detail": "{'member': {'id': '651a5ede-3914-4944-b677-d7e7fe34072a', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'userId': '9f18d99d-c024-49b9-917e-87f077efca90', 'role': 'member', 'joinedAt': '2026-09-10T07:53:06.215Z', 'user': {'id': '9f18d99d-c024-49b9-917e-87f077efca90', 'email': 'qa_b_ohvpyr@example.com', 'displayName': 'QA B', 'passwordHash': '$2a$10$lCYdBJ9OgwT/HyBKNlLLNOW8Wk9MUgWh9.fGZjADEgN7wknRefrWG', 'createdAt': '2026-09-10T07:53:05.859Z', 'updatedAt': '2026-09-10T07:53:05.859Z'}}}"
+    },
+    {
+      "name": "add duplicate member -> 409",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET members includes A and B",
+      "passed": true,
+      "detail": "[{'id': '062a8457-f860-4c9a-aa05-c5abf31414df', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'userId': '851f86df-f702-4093-a873-85c1987db04b', 'role': 'owner', 'joinedAt': '2026-09-10T07:53:06.205Z', 'user': {'id': '851f86df-f702-4093-a873-85c1987db04b', 'email': 'qa_a_ohvpyr@example.com', 'displayName': 'QA A'}}, {'id': '651a5ede-3914-4944-b677-d7e7fe34072a', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'userId': '9f18d99d-c024-49b9-917e-87f077efca90', 'role': 'member', 'joinedAt': '2026-09-10T07:53:06.215Z', 'user': {'id': '9f18d99d-c024-49b9-917e-87f077efca90', 'email': 'qa_b_ohvpyr@example.com', 'displayName': 'QA B'}}]"
+    },
+    {
+      "name": "PATCH member role to admin -> 200",
+      "passed": true,
+      "detail": "{'member': {'id': '651a5ede-3914-4944-b677-d7e7fe34072a', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'userId': '9f18d99d-c024-49b9-917e-87f077efca90', 'role': 'admin', 'joinedAt': '2026-09-10T07:53:06.215Z'}}"
+    },
+    {
+      "name": "DELETE workspace as admin (non-owner) -> 403",
+      "passed": true,
+      "detail": "403 {'error': {'code': 'FORBIDDEN', 'message': 'Only owner can delete workspace'}}"
+    },
+    {
+      "name": "POST workspace bad handle -> 400",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET workspace as non-member -> 403",
+      "passed": true,
+      "detail": "403"
+    },
+    {
+      "name": "POST project create -> 201",
+      "passed": true,
+      "detail": "{'project': {'id': 'cfdd6736-7c01-4488-8c03-860daa476597', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'name': 'QA Project', 'key': 'QAP', 'description': 'desc', 'status': 'active', 'creatorId': '851f86df-f702-4093-a873-85c1987db04b', 'createdAt': '2026-09-10T07:53:06.619Z', 'updatedAt': '2026-09-10T07:53:06.619Z'}}"
+    },
+    {
+      "name": "POST duplicate project key -> 409",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET projects listing filtered",
+      "passed": true,
+      "detail": "total=1"
+    },
+    {
+      "name": "GET project by id",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH project name",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST project member B -> 201 or 409",
+      "passed": true,
+      "detail": "201 {'member': {'id': '247a3879-6707-4111-a306-d286b805ddcb', 'projectId': 'cfdd6736-7c01-4488-8c03-860daa476597', 'userId': '9f18d99d-c024-49b9-917e-87f077efca90', 'joinedAt': '2026-09-10T07:53:06.636Z'}}"
+    },
+    {
+      "name": "GET project as non-member -> 403",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST label create",
+      "passed": true,
+      "detail": "{'label': {'id': '5c011d75-7624-4e4e-bb2d-f1083e1622ca', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'name': 'qa-label', 'color': '#ff0000'}}"
+    },
+    {
+      "name": "POST duplicate label name -> 409",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET labels",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH label rename",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DELETE label as owner -> 204",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DELETE label as member -> 403",
+      "passed": true,
+      "detail": "403"
+    },
+    {
+      "name": "POST label invalid color -> 400",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST task with assignee+label+dueDate -> 201",
+      "passed": true,
+      "detail": "{'task': {'id': '7a366d2e-db73-4350-8711-5b9b90bf473f', 'projectId': 'cfdd6736-7c01-4488-8c03-860daa476597', 'title': 'QA Task 1', 'description': 'desc', 'status': 'todo', 'priority': 'high', 'dueDate': '2026-09-20T00:00:00.000Z', 'position': 1000, 'creatorId': '851f86df-f702-4093-a873-85c1987db04b', 'createdAt': '2026-09-10T07:53:07.137Z', 'updatedAt': '2026-09-10T07:53:07.137Z', 'assignees': [{'id': '9f18d99d-c024-49b9-917e-87f077efca90', 'email': 'qa_b_ohvpyr@example.com', 'displayName': 'QA B'}], 'labels': [{'id': '5c011d75-7624-4e4e-bb2d-f1083e1622ca', 'workspaceId': '62c9aae8-4788-4b46-a732-01cfde6e46b6', 'name': 'qa-label-renamed', 'color': '#0000ff'}]}}"
+    },
+    {
+      "name": "task has assignees expanded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "task has labels expanded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST task invalid assignee -> 400",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST task foreign label -> 400",
+      "passed": true,
+      "detail": "{'error': {'code': 'VALIDATION_ERROR', 'message': 'Label 84e112bc-b069-4202-8c21-a84a4ad54b19 not in workspace'}}"
+    },
+    {
+      "name": "GET tasks by project -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET task by id includes comments, labels",
+      "passed": true,
+      "detail": "keys ['id', 'projectId', 'title', 'description', 'status', 'priority', 'dueDate', 'position', 'creatorId', 'createdAt', 'updatedAt', 'assignees', 'labels', 'comments', 'project']"
+    },
+    {
+      "name": "PATCH task status to in_progress -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH task position -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH task clear assignees/labels -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET task activity -> 200 with logs",
+      "passed": true,
+      "detail": "len 4"
+    },
+    {
+      "name": "GET tasks search filter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET tasks status filter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET tasks priority filter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET tasks assignee filter (now empty since cleared) -> maybe 0",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET tasks sort by dueDate asc",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET tasks sort by position",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST done/low task for filters",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST overdue task",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST comment -> 201",
+      "passed": true,
+      "detail": "{'comment': {'id': 'ef687358-3001-4b0e-b0ba-8344f4fb7b7f', 'taskId': '7a366d2e-db73-4350-8711-5b9b90bf473f', 'authorId': '851f86df-f702-4093-a873-85c1987db04b', 'body': 'First comment', 'createdAt': '2026-09-10T07:53:07.218Z', 'updatedAt': '2026-09-10T07:53:07.218Z', 'author': {'id': '851f86df-f702-4093-a873-85c1987db04b', 'displayName': 'QA A', 'email': 'qa_a_ohvpyr@example.com'}}}"
+    },
+    {
+      "name": "GET comments -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH comment as author -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PATCH comment as non-author -> 403",
+      "passed": true,
+      "detail": "403 {'error': {'code': 'FORBIDDEN', 'message': 'Only author can edit'}}"
+    },
+    {
+      "name": "DELETE comment as non-author -> 403",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DELETE comment as author -> 204",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST comment empty body -> 400",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET dashboard by workspace -> 200",
+      "passed": true,
+      "detail": "keys ['totalTasks', 'byStatus', 'byPriority', 'overdue', 'recentActivity', 'projectIds']"
+    },
+    {
+      "name": "dashboard totalTasks numeric",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "dashboard byStatus is object",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "dashboard byPriority is object",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "dashboard recentActivity array",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "dashboard overdue counts past-due",
+      "passed": true,
+      "detail": "overdue=1"
+    },
+    {
+      "name": "GET dashboard by project -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET dashboard all workspaces -> 200",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET dashboard as non-member -> 403 or filtered",
+      "passed": true,
+      "detail": "status=403"
+    },
+    {
+      "name": "GET non-existent project -> 404",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET non-existent task -> 404",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "PATCH non-existent task -> 404",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "POST tasks validation error has fields",
+      "passed": true,
+      "detail": "{'error': {'code': 'VALIDATION_ERROR', 'message': 'Validation failed', 'fields': {'projectId': 'Invalid uuid', 'title': 'String must contain at least 1 character(s)'}}}"
+    },
+    {
+      "name": "GET workspaces unauthenticated -> 401",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET workspaces pagination -> 200 with paginated shape",
+      "passed": true,
+      "detail": "{'data': [{'id': '260b755c-3b69-41d3-bd71-b0f2f333b8e5', 'name': 'Second WS', 'handle': 'second-ohvpyr', 'description': None, 'ownerId': '851f86df-f702-4093-a873-85c1987db04b', 'createdAt': '2026-09-10T07:53:07.150Z', 'updatedAt': '2026-09-10T07:53:07.150Z', 'role': 'owner'}], 'total': 2, 'page': 1, 'totalPages': 2}"
+    },
+    {
+      "name": "GET tasks pagination",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "DELETE task -> 204",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "GET deleted task -> 404",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "bugs": []
+}

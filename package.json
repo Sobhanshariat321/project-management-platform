@@ -1,0 +1,35 @@
+{
+  "name": "project-management-platform",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "build": "npm run build --workspace=packages/shared && npm run build --workspace=server && npm run build --workspace=client",
+    "build:server": "npm run build --workspace=server",
+    "build:client": "npm run build --workspace=client",
+    "start": "npm run start --workspace=server",
+    "preview": "npm run preview --workspace=client",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "db:migrate": "npm run db:migrate --workspace=server",
+    "db:seed": "npm run db:seed --workspace=server",
+    "db:reset": "npm run db:reset --workspace=server",
+    "db:studio": "npm run db:studio --workspace=server",
+    "db:generate": "npm run db:generate --workspace=server"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "paperclipai": "^2026.831.1"
+  },
+  "allowScripts": {
+    "@embedded-postgres/darwin-arm64@18.1.0-beta.16": true,
+    "ssh2@1.17.0": true,
+    "cpu-features@0.0.10": true
+  }
+}

@@ -61,7 +61,7 @@ docker compose up -d && npm run db:migrate && npm run db:seed && npm run dev
 | `npm run db:studio` | Prisma Studio on :5555 |
 | `npm run db:generate` | `prisma generate` |
 | `npm run build` | builds `packages/shared` → `server` → `client` (client emits `client/dist/`) |
-| `npm run typecheck` | `tsc --noEmit` per workspace |
+| `npm run typecheck` | builds `@repo/shared` first, then `tsc --noEmit` per workspace |
 | `npm run lint` | oxlint per workspace (if installed) |
 | `npm run start` | `node server/dist/server.js` (after build) |
 | `docker compose down` | stop DB (add `-v` to wipe pgdata) |
